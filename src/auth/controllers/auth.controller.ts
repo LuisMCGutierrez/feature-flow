@@ -22,7 +22,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() signInDto: LoginDto) {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+    return this.authService.login(signInDto);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
