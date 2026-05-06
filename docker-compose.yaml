@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    container_name: feature-flow
+    restart: unless-stoped
+    enviroment:
+      POSTGRES_USER: nest
+      POSTGRES_PASSWORD: nest123
+      POSTGRES_DB: feature-flow-db
+    ports:
+      - '5432:5432'
+    volumnes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
