@@ -28,6 +28,18 @@ export class UsersService {
     return user;
   }
 
+  async findOneByEmailWithPassword(email: string): Promise<User> {
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .where('user.email = :email', { email })
+      .getOne();
+
+    if (!user) throw new NotFoundException('User not found');
+
+    return user;
+  }
+
   async create(dto: CreateUserDto): Promise<User> {
     const emailExists = await this.userRepository.findOneBy({
       email: dto.email,

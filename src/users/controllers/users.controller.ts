@@ -28,12 +28,6 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Post()
-  create(@Body() payload: CreateUserDto) {
-    return this.usersService.create(payload);
-  }
-
   @Patch(':id')
   update(@Param(':id') id: User['id'], @Body() payload: UpdateUserDto) {
     return this.usersService.update(id, payload);
