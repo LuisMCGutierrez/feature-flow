@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Req,
   UnauthorizedException,
@@ -28,7 +29,10 @@ export class PlansController {
 
   @UseGuards(JwtAuthGuard)
   @Post(':id')
-  subscribeToPlan(@Req() req: Request, @Param(':id') id: Plan['id']) {
+  subscribeToPlan(
+    @Req() req: Request,
+    @Param('id', ParseIntPipe) id: Plan['id'],
+  ) {
     const user = req.user as User;
     if (!user || !user.id) throw new UnauthorizedException();
     return this.usersService.assignPlanToUser(user.id, id);
