@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { PlansModule } from './plans/plans.module';
+import { Plan } from './plans/entities/plan.entity';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { AuthModule } from './auth/auth.module';
         username: config.get<string>('DB_USER'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_NAME'),
-        entities: [User],
+        entities: [User, Plan],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -29,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
 
     UsersModule,
     AuthModule,
+    PlansModule,
   ],
   controllers: [],
   providers: [],

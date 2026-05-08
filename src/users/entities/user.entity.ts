@@ -1,10 +1,13 @@
 import { Exclude } from 'class-transformer';
+import { Plan } from 'src/plans/entities/plan.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinTable,
 } from 'typeorm';
 
 export enum ROLE {
@@ -12,7 +15,7 @@ export enum ROLE {
   ADMIN = 'admin',
 }
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -41,4 +44,8 @@ export class User {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
+
+  @ManyToOne(() => Plan, (plan) => plan.users)
+  @JoinTable({ name: 'plan_id' })
+  plan!: Plan;
 }
